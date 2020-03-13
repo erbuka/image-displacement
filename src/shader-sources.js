@@ -33,7 +33,7 @@ const fDisplace = `
 
     void main() {
         float pCenter = avgRgb(uMap, vTexCoords); 
-        gl_FragColor = vec4(texture2D(uSource, vTexCoords + vec2(pCenter, pCenter) * uPixelSize * uStrength).rgb, 1.0);
+        gl_FragColor = texture2D(uSource, vTexCoords + vec2(pCenter, pCenter) * uPixelSize * uStrength);
     }
     
 `;
