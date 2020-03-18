@@ -138,7 +138,7 @@ export class Filter {
             var max = gl.getParameter(ext.MAX_TEXTURE_MAX_ANISOTROPY_EXT);
             gl.texParameterf(gl.TEXTURE_2D, ext.TEXTURE_MAX_ANISOTROPY_EXT, max);
         }
-        
+
         return texId;
     }
 
