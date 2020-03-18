@@ -7,13 +7,13 @@ export class Filter {
      * @param {object} options Filter options 
      */
     constructor(options) {
-        /** @member {HTMLCanvasElement} The underlying canvas */
+        /** @member {HTMLCanvasElement} canvas The underlying canvas */
         let canvas = this.canvas = document.createElement("canvas");
 
-        /** @member {WebGLRenderingContext} The underlying webgl context */
+        /** @member {WebGLRenderingContext} gl The underlying webgl context */
         let gl = this.gl = canvas.getContext("webgl", { premultipliedAlpha: false });
 
-        /** @member {object} This instance's options */
+        /** @member {object} options This instance's options */
         this.options = Object.assign({}, options);
 
         // Init GL
