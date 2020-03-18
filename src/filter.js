@@ -11,7 +11,7 @@ export class Filter {
         let canvas = this.canvas = document.createElement("canvas");
 
         /** @member {WebGLRenderingContext} The underlying webgl context */
-        let gl = this.gl = canvas.getContext("webgl");
+        let gl = this.gl = canvas.getContext("webgl", { premultipliedAlpha: false });
 
         /** @member {object} This instance's options */
         this.options = Object.assign({}, options);
@@ -47,7 +47,7 @@ export class Filter {
     drawQuad() {
 
         let gl = this.gl;
-        
+
         gl.bindBuffer(gl.ARRAY_BUFFER, this.vbQuad)
 
         gl.enableVertexAttribArray(0);
@@ -127,6 +127,18 @@ export class Filter {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 
+        // Set the anisotropy to max if available
+        var ext = (
+            gl.getExtension('EXT_texture_filter_anisotropic') ||
+            gl.getExtension('MOZ_EXT_texture_filter_anisotropic') ||
+            gl.getExtension('WEBKIT_EXT_texture_filter_anisotropic')
+        );
+        
+        if (ext) {
+            var max = gl.getParameter(ext.MAX_TEXTURE_MAX_ANISOTROPY_EXT);
+            gl.texParameterf(gl.TEXTURE_2D, ext.TEXTURE_MAX_ANISOTROPY_EXT, max);
+        }
+        
         return texId;
     }
 
